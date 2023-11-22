@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  trackerDB:
+    container_name: trackerDatabase
+    image: 'gewichttracker'
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=12345
