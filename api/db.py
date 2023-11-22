@@ -7,8 +7,8 @@ class Connection:
 
     user = "root"
     pw = 12345 # bad practice, or even worst practice, but for this assignment its okay
-    host = "127.0.0.1"
-    port = "3306"
+    host: str = "127.0.0.1"
+    port: str = "3306"
     database = "weight_tracker"
 
     def __init__(self) -> None:
