@@ -21,25 +21,25 @@ CREATE Database `weight_tracker`;
 USE weight_tracker;
 
 CREATE TABLE animal (
-    'p_animal_id' int(11) NOT NULL AUTO_INCREMENT,
-    'name' VARCHAR(255) NOT NULL,
-    'species' VARCHAR(255) NOT NULL,
-    'sex' ENUM('male', 'female') NOT NULL,
-    'init_weight' FLOAT NOT NULL,
-    'birthday' timestamp NULL DEFAULT NULL,
-    'created' timestamp NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (`p_animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;
+    p_animal_id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    species VARCHAR(255) NOT NULL,
+    sex ENUM('male', 'female') NOT NULL,
+    init_weight FLOAT NOT NULL,
+    birthday TIMESTAMP NULL DEFAULT NULL,
+    created TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+    PRIMARY KEY (p_animal_id)
+);
 
 CREATE TABLE weight (
-    'p_weight_id' int(11) NOT NULL AUTO_INCREMENT,
-    'f_animal_id' int(11) NOT NULL,
-    'created' timestamp NULL DEFAULT current_timestamp(),
-    'weight' FLOAT NOT NULL
-    PRIMARY KEY (`p_weight_id`),
-    KEY `f_animal_id` (`f_animal_id`),
-    CONSTRAINT `weight_ibfk_1` FOREIGN KEY (`f_animal_id`) REFERENCES `animal` (`p_animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;
+    p_weight_id INT(11) NOT NULL AUTO_INCREMENT,
+    f_animal_id INT(11) NOT NULL,
+    created TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+    weight FLOAT NOT NULL,
+    PRIMARY KEY (p_weight_id),
+    KEY f_animal_id (f_animal_id),
+    CONSTRAINT weight_ibfk_1 FOREIGN KEY (f_animal_id) REFERENCES animal (p_animal_id)
+);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

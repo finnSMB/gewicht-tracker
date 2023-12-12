@@ -1,87 +1,86 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, logger
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import uvicorn
+import json
 
-from api.projectTypes import Animal
+from api.projectTypes import Animal, WeightSubmit
 from api.db import Connection
 
 app = FastAPI()
 con = Connection()
 
-versions: list[str] = ["v1"]
+origins = [
+    "http://localhost:8000",
+    "http://localhost:5173",
+]
 
-resources_v1: list[str] = ["tracker"]
-methods_v1: list[str] = ["amount", "animal"]
-
-
-# User guidance stuff
-@app.get("/api/")
-def get_api_versions():
-    return {"versions": versions}
-
-
-@app.get("/api/v1/")
-def get_api_resources():
-    return {"resources": resources_v1}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-# Resource functionality starts here
-@app.get("/api/v1/tracker/")
-def get_api_methods():
-    return {"methods/subresources": methods_v1}
-
-
-@app.get("/api/v1/tracker/amount")
+@app.get("/api/v1/tracker/amount", tags=["Number of Animals"])
 def get_amount_of_tracked_units():
-    return {"trackedAnimals": 42482}
-
-
-@app.options("/api/v1/tracker/amount")
-def options_amount_of_tracked_units():
-    return {"options": "GET, OPTIONS"}
+    return to_valid_json(con.get_amount_tracked_animals())
 
 
 # Animals methods
-@app.get("/api/v1/tracker/animals")
-def get_animals() -> Animal:
-    animals: Animal = con.get_animals()
-    return { animals }
-
-
-@app.options("/api/v1/tracker/animals")
-def options_animals():
-    return {"options": "GET, OPTIONS"}
+@app.get("/api/v1/tracker/animals", tags=["Animals"])
+def get_animals():
+    return to_valid_json(con.get_animals())
 
 
 # Animal methods
-@app.get("/api/v1/tracker/animal")
-def get_animal():
-    return 1
+@app.get("/api/v1/tracker/animal", tags=["Animal"])
+def get_animal(id: int):
+    return to_valid_json(con.get_animal(id))
 
 
-@app.post("/api/v1/tracker/animal")
-def post_animal():
-    return 1
+@app.post("/api/v1/tracker/animal", tags=["Animal"])
+def post_animal(payload: Animal):
+    return {"response": con.add_animal(payload)}
 
 
-@app.put("/api/v1/tracker/animal")
-def put_animal():
-    return 1
+@app.delete("/api/v1/tracker/animal", tags=["Animal"])
+def delete_animal(id: int):
+    con.delete_animal(id)
 
 
-@app.delete("/api/v1/tracker/animal")
-def delete_animal():
-    return 1
+@app.get("/api/v1/tracker/animalweight", tags=["Animal Weight"])
+def get_recored_animal_weights(id: int):
+    return to_valid_json(con.get_animal_weight(id))
 
 
-@app.options("/api/v1/tracker/animal")
-def options_animal():
-    return {"options": "GET, POST, PUT, DELETE, OPTIONS"}
+@app.post("/api/v1/tracker/animalweight", tags=["Animal Weight"])
+def post_animal_weight_data(weight: WeightSubmit):
+    con.post_animal_weight(weight)
+
+
+"""
+Helper function to create a valid json list.
+
+:param data: list, containing all the database entries.
+:return: list, in a valid json format.
+"""
+
+
+def to_valid_json(data: list) -> list:
+    parsed_data: list = [json.loads(row[0]) for row in data]
+
+    return parsed_data
 
 
 # Make this runnable with poetry
 def start():
     """Launched with `poetry run start` in poetry shell at root project level"""
-    uvicorn.run("rtt.main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("api.main:app", host="127.0.0.1", port=8000, reload=True)
 
 
 if __name__ == "__main__":

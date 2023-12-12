@@ -2,7 +2,6 @@
   <main>
     <h1>Create</h1>
     <hr>
-
     <CreateForm />
   </main>
 </template>

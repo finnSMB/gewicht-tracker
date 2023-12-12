@@ -24,6 +24,11 @@ import { RouterLink, RouterView } from "vue-router";
   background-color: #fbfbfb;
 }
 
+.error-border {
+  border: 1px solid red;
+  border-radius: 8px;
+}
+
 header {
   padding: 10px;
 }

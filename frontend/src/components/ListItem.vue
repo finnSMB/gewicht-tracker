@@ -1,15 +1,27 @@
 <template>
-  <tr>
-    <td>Hund</td>
-    <td>Golden Retriever</td>
-    <td>Male</td>
-    <td>7kg</td>
-    <td>10.10.2023</td>
-    <td>22.11.2023</td>
+  <tr @click="goToAnimal">
+    <td>{{ item.name }}</td>
+    <td>{{ item.species }}</td>
+    <td>{{ item.sex }}</td>
+    <td>{{ item.weight }}</td>
+    <td>{{ item.birthday }}</td>
+    <td>{{ item.created }}</td>
   </tr>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const props = defineProps<{
+  item: any
+}>()
+
+const goToAnimal = () => {
+  router.push("/animals/" + props.item.id)
+}
+</script>
 
 <style scoped>
 tr:hover {

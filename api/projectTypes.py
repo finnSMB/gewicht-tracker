@@ -13,4 +13,9 @@ class Animal(BaseModel):
     species: str
     sex: AnimalGender
     birthday: str
-    weight: float
+    weight: float | int
+
+
+class WeightSubmit(BaseModel):
+    weight: int | float
+    id: int
