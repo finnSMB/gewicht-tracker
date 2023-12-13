@@ -7,6 +7,7 @@ You might be able to run and look at the UI without launching the API. Just go t
 This does not feature high quality code :D the goal was to try to get it done as fast as possible
 while mainting somewhat of a readable codebase.
 
+(the git commits have the same problem)
 
 ## Installation
 This probably only runs on MacOS or WSL (Windows Subsystem for Linux). But you can try running this anyway.
