@@ -1,4 +1,4 @@
-# Gewicht-Tracker-App
+# Gewicht-Tracker-App (prototype)
 The API runs with FastAPI, you can look at its swagger-ui under `{{ip adress shown in console after launching:port}}/docs`
 
 You might be able to run and look at the UI without launching the API. Just go to "using/testing/running" -> "Vue3 Frontend with javascript"
