@@ -1,16 +1,19 @@
 from mariadb import Cursor, Connection, mariadb
 from api.projectTypes import Animal, WeightSubmit
 
+# custom imports
+from api.config import DB_USER, DB_PASSWORD, DB_IP, DB_PORT, DB_TABLE
+
 
 class Connection:
     cursor: Cursor
     connection: Connection
 
-    user = "root"
-    pw = "12345"  # bad practice, or even worst practice, but for this assignment its okay
-    host = "127.0.0.1"
-    port = 3306
-    database = "weight_tracker"
+    user = DB_USER
+    pw = DB_PASSWORD
+    host = DB_IP
+    port = DB_PORT
+    database = DB_TABLE
 
     def __init__(self) -> None:
         self.connect_to_db()

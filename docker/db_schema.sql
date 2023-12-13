@@ -38,7 +38,7 @@ CREATE TABLE weight (
     weight FLOAT NOT NULL,
     PRIMARY KEY (p_weight_id),
     KEY f_animal_id (f_animal_id),
-    CONSTRAINT weight_ibfk_1 FOREIGN KEY (f_animal_id) REFERENCES animal (p_animal_id)
+    CONSTRAINT weight_ibfk_1 FOREIGN KEY (f_animal_id) REFERENCES animal (p_animal_id) ON DELETE CASCADE
 );
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

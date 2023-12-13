@@ -22,14 +22,18 @@ After launching all the parts of this application an IP address will be displaye
 ### Python
 Run `poetry install` in the projects root folder.
 
-(Optional, i think) Wait until the packages are installed and then launch a poetry shell:
- `poetry shell`
+Wait until the packages are installed and then launch a poetry shell:
+`poetry shell`
 
+*new*
+Run `poetry run start` to launch the FastAPI backend.
+
+*old*
 CD into the api folder: `cd api`
 run: `uvicorn main:app --reload`
 
 ###  Docker / Database
-Check the docker folder! 
+Check the docker folder!
 
 Launch Dockerfile with Docker to create an Image of our Database. Name the image `gewichttracker` (it should be suggested) or change the name accordingly in the docker-compose.dev.yml
 
