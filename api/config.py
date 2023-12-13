@@ -1,6 +1,6 @@
-# Do not upload this filled in with data, keep it in the .gitignore please!
-DB_USER = ""
-DB_PASSWORD = ""
+# You can see this, because this is not used in a real production environment :D
+DB_USER = "root"
+DB_PASSWORD = "12345" #docker-compose.dev.yml is where it is being set
 
 # Exchange as you please
 DB_IP = "127.0.0.1"

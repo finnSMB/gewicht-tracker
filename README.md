@@ -3,6 +3,10 @@ The API runs with FastAPI, you can look at its swagger-ui under `{{ip adress sho
 
 You might be able to run and look at the UI without launching the API. Just go to "using/testing/running" -> "Vue3 Frontend with javascript"
 
+## Foreword!
+This does not feature high quality code :D the goal was to try to get it done as fast as possible
+while mainting somewhat of a readable codebase.
+
 
 ## Installation
 This probably only runs on MacOS or WSL (Windows Subsystem for Linux). But you can try running this anyway.
