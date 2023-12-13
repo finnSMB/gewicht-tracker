@@ -37,6 +37,11 @@ Run `poetry run start` to launch the FastAPI backend.
 CD into the api folder: `cd api`
 run: `uvicorn main:app --reload`
 
+### Vue3 Frontend with javascript
+CD into the frontend folder `cd frontend`
+
+Run `npm install` to install all the packages and then launch it with `npm run dev`
+
 ###  Docker / Database
 Check the docker folder!
 
@@ -46,8 +51,3 @@ Run the docker-compose file to launch the database!
 
 If you don't want to use docker, the `db_schema.sql` contains all the information you need.
 
-
-### Vue3 Frontend with javascript
-CD into the frontend folder `cd frontend`
-
-Run `npm install` to install all the packages and then launch it with `npm run dev`
