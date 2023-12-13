@@ -1,10 +1,11 @@
 <template>
-  <div class="content container">
+  <div class="content container-sm">
     <header>
-      <nav class="navbar-navbar">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/animals">Animals</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav class="navbar-navbar bb-1">
+        <RouterLink class="navbar-brand" to="/">Weight Tracker</RouterLink>
+        <RouterLink class="nav-item" to="/">Home</RouterLink>
+        <RouterLink class="nav-item" to="/animals">Animals</RouterLink>
+        <RouterLink class="nav-item" to="/about">About</RouterLink>
       </nav>
     </header>
 

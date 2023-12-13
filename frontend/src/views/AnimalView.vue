@@ -1,19 +1,26 @@
 <template>
-  <div v-if="animal">
-    <h1>{{ animal.name }}</h1>
-    <p v-for="it in animal">
-      {{ it }}
-    </p>
-    <br />
-    <div class="row">
-      <button v-if="!weightData" class="btn btn-primary" @click="getDataset">
-        Load Weight Data
-      </button>
+  <div class="container" v-if="animal">
+    <div>
+      <h1>Your tracked animal</h1>
+      <p v-for="it in animal">
+        {{ it }}
+      </p>
+    </div>
+    <div>
+      <div class="btn-group">
+        <button class="btn btn-danger" @click="deleteDataset">
+          Delete Animal
+        </button>
+        <button class="btn btn-primary" @click="getDataset">
+          {{ weightData ? "Refresh weight data" : "Load weight data" }}
+        </button>
+      </div>
       <Weight
         v-if="weightData"
         :data="weightData"
         :created="created"
         :aId="animal.id"
+        @added-weight="getDataset"
       />
     </div>
   </div>
@@ -24,6 +31,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import type { Animal } from "@/util/customTypes";
 import Weight from "@/components/Weight.vue";
+import router from "@/router";
 
 const route = useRoute();
 const animal = ref<Animal>();
@@ -63,5 +71,26 @@ const getDataset = () => {
     .catch((err) => {
       console.error(err);
     });
+};
+
+const deleteDataset = () => {
+  if (!animal.value) {
+    console.warn("No Animal Data found");
+    return;
+  }
+
+  fetch("http://127.0.0.1:8000/api/v1/tracker/animal?id=" + animal.value.id, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  router.push("/animals");
 };
 </script>

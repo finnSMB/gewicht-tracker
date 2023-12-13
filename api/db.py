@@ -51,14 +51,14 @@ class Connection:
         return self.cursor.fetchall()
 
     def add_animal(self, data: Animal) -> bool:
-        sql = "INSERT INTO animal (name, species, sex, init_weight, birthday) VALUES(%s, %s, %s, %s, %s);"
+        sql = "INSERT INTO animal (name, species, sex, init_weight, birthday) VALUES(%s, %s, %s, %s, %s) RETURNING p_animal_id;"
 
         self.cursor.execute(
             sql, (data.name, data.species, data.sex, data.weight, data.birthday)
         )
         self.connection.commit()
 
-        return True
+        return self.cursor.fetchall()
 
     def delete_animal(self, animal_id: int) -> bool:
         sql = "DELETE FROM animal WHERE p_animal_id = %s;"

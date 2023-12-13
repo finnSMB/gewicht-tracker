@@ -1,6 +1,6 @@
 <template>
-  <form>
-    <div class="mb-3" v-if="!weightMode">
+  <form class="container-sm">
+    <div class="mb-3">
       <label for="name" class="form-label">Animal name</label>
       <input
         id="name"
@@ -15,7 +15,7 @@
       </span>
     </div>
 
-    <div class="mb-3" v-if="!weightMode">
+    <div class="mb-3">
       <label for="species" class="form-label">Species</label>
       <input
         id="species"
@@ -29,7 +29,7 @@
       </span>
     </div>
 
-    <div class="mb-3" v-if="!weightMode">
+    <div class="mb-3">
       <label for="sex" class="form-label">Sex</label>
       <select
         id="sex"
@@ -46,7 +46,7 @@
       </span>
     </div>
 
-    <div class="mb-3" v-if="!weightMode">
+    <div class="mb-3">
       <label for="date" class="form-label">Birthday</label>
       <input
         id="date"
@@ -88,11 +88,7 @@
 import { ref } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-
-// Deprecated
-const props = defineProps<{
-  weightMode?: boolean;
-}>();
+import router from "@/router";
 
 const name = ref<string>("");
 const species = ref<string>("");
@@ -123,7 +119,19 @@ const submitForm = () => {
       "Content-Type": "application/json",
     },
     body: getValues(),
-  });
+  })
+  .then((response) => {
+      response.json().then((data) => {
+        if (data["id"]) {
+          router.push("/animals/" + data["id"])
+        } else {
+          window.location.reload()
+        }
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 const getValues = () => {
@@ -137,3 +145,9 @@ const getValues = () => {
 };
 </script>
 
+<style>
+.error-border {
+  border: 1px solid red;
+  border-radius: 8px;
+}
+</style>

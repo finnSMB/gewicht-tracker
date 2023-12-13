@@ -45,7 +45,7 @@ def get_animal(id: int):
 
 @app.post("/api/v1/tracker/animal", tags=["Animal"])
 def post_animal(payload: Animal):
-    return {"response": con.add_animal(payload)}
+    return {"id": con.add_animal(payload)}
 
 
 @app.delete("/api/v1/tracker/animal", tags=["Animal"])

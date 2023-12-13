@@ -1,26 +1,34 @@
 <template>
   <div>
     <div>
-      <h2>Chart</h2>
-      <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
-    </div>
-
-    <div>
       <h2>Add data</h2>
-      <div class="mb-3">
-        <label for="weight" class="form-label">Weight (in KG)</label>
+      <div class="input-group mb-3">
         <input
+          aria-describedby="button-addon1"
+          placeholder="Weight (in KG)"
           id="weight"
           type="number"
           class="form-control"
           :class="{ 'error-border': v$.weight.$error }"
           v-model="weight"
         />
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="button-addon1"
+          @click="submitWeight"
+          @submit="submitWeight"
+        >
+          Add
+        </button>
         <span v-if="v$.weight.$error" style="color: red">
           <span v-if="v$.weight.required">Weight required</span>
         </span>
       </div>
-      <button class="btn btn-primary" @click="submitWeight">Add</button>
+    </div>
+    <div class="chart">
+      <h2>Chart</h2>
+      <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
     </div>
   </div>
 </template>
@@ -48,6 +56,10 @@ ChartJS.register(
   CategoryScale,
   LinearScale
 );
+
+const emit = defineEmits<{
+  (e: 'added-weight'): void
+}>()
 
 const props = defineProps<{
   aId: number;
@@ -91,8 +103,12 @@ const submitWeight = () => {
     }),
   });
 
-  window.location.reload()
+  emit("added-weight")
 };
 </script>
 
-<style></style>
+<style scoped>
+.chart {
+  padding-bottom: 100px;
+}
+</style>
