@@ -58,8 +58,8 @@ ChartJS.register(
 );
 
 const emit = defineEmits<{
-  (e: 'added-weight'): void
-}>()
+  (e: "added-weight"): void;
+}>();
 
 const props = defineProps<{
   aId: number;
@@ -84,14 +84,14 @@ const chartOptions = {
   responsive: true,
 };
 
-const submitWeight = () => {
+const submitWeight = async () => {
   v$.value.$touch();
   if (v$.value.$error) {
     console.warn("Vuelidate error");
     return;
   }
 
-  fetch("http://127.0.0.1:8000/api/v1/tracker/animalweight", {
+  await fetch("http://127.0.0.1:8000/api/v1/tracker/animalweight", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -103,7 +103,7 @@ const submitWeight = () => {
     }),
   });
 
-  emit("added-weight")
+  emit("added-weight");
 };
 </script>
 

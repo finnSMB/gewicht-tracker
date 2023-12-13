@@ -33,6 +33,7 @@ import type { Animal } from "@/util/customTypes";
 import Weight from "@/components/Weight.vue";
 import router from "@/router";
 
+// vars
 const route = useRoute();
 const animal = ref<Animal>();
 const weightData = ref<any>();
